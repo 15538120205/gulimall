@@ -15,3 +15,17 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+**/mvnw
+**/mvnw.cmd
+
+**/.mvn
+**/target/
+
+.idea
+
+**/.gitignore
+/gulimall-coupon/.gitattributes
+/gulimall-member/.gitattributes
+/gulimall-product/.gitattributes
+/gulimall-ware/.gitattributes
+/gulimall-order/.gitattributes
