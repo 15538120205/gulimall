@@ -23,6 +23,12 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
+  application:
+    name: renren-fast
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
 
   mvc:
     throw-exception-if-no-handler-found: true
@@ -65,3 +71,5 @@ renren:
     # token有效时长，7天，单位秒
     expire: 604800
     header: token
+
+

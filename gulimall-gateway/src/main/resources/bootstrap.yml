@@ -1,0 +1,11 @@
+# 改名字，对应nacos里的配置文件名
+spring:
+  application:
+    name: gulimall-gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml # 指定配置文件为yaml/properties格式
+        namespace: d016f414-9952-4d64-81c0-13d20b45fd0b
+#        namespace: 只能写命名空间的id
