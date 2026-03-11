@@ -20,7 +20,7 @@ import java.util.Map;
 public class GulimallExceptionControllerAdvice {
     //处理数据校验异常
     @ResponseBody
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public R handleVaildException(MethodArgumentNotValidException e) {
         log.error("数据校验出现问题{},异常类型{}", e.getMessage(), e.getClass());
         BindingResult bindingResult = e.getBindingResult();
