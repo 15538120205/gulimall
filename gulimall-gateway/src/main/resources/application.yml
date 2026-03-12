@@ -7,6 +7,12 @@ spring:
         server-addr: 127.0.0.1:8848
     gateway:
       routes:
+        - id: member_route
+          uri: lb://gulimall-member
+          predicates:
+              - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
         #        oss等第三方模块路由
         - id: third_party_route
           uri: lb://gulimall-third-party
@@ -37,3 +43,6 @@ spring:
             # 所以使用路径重写把/api/* 改变成 /renren-fast/*
   application:
     name: gulimall-gateway
+logging:
+  level:
+    com.com.atguigu.gulimall: debug

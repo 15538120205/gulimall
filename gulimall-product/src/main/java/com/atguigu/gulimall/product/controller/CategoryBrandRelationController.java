@@ -2,16 +2,19 @@ package com.atguigu.gulimall.product.controller;
 
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
+import com.atguigu.gulimall.product.entity.BrandEntity;
 import com.atguigu.gulimall.product.entity.CategoryBrandRelationEntity;
 import com.atguigu.gulimall.product.service.CategoryBrandRelationService;
+import com.atguigu.gulimall.product.vo.BrandVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 
 
 /**
@@ -100,4 +103,24 @@ public class CategoryBrandRelationController {
         return R.ok();
     }
 
+    /**
+     * 获取当前分类关联的所有品牌
+     * @param
+     * @return
+     */
+    @GetMapping(value = "/brands/list")
+    public R relationBrandList(@RequestParam(value = "catId",required = true) Long catId){
+        List<BrandEntity> vos = categoryBrandRelationService.getBrandsByCatId(catId);
+        List<BrandVo> list = vos.stream().map(item -> {
+            BrandVo brandVo = new BrandVo();
+            brandVo.setBrandName(item.getName());
+            brandVo.setBrandId(item.getBrandId());
+            return brandVo;
+        }).collect(Collectors.toList());
+
+        return R.ok().put("data", list);
+
+    }
+
 }
+
