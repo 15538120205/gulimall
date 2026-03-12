@@ -59,6 +59,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     /**
      * 保存商品信息
+     *
+     *  //TODO 高级部分完善
      * @param vo
      */
     @Transactional
@@ -69,6 +71,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         BeanUtils.copyProperties(vo,spuInfoEntity);
         spuInfoEntity.setCreateTime(new Date());
         spuInfoEntity.setUpdateTime(new Date());
+        spuInfoEntity.setPublishStatus(0);
         this.saveBaseSpuInfo(spuInfoEntity);
         //保存spu的描述图片: pms_spu_info_desc
         List<String> decript = vo.getDecript();
@@ -119,6 +122,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 skuInfoEntity.setBrandId(spuInfoEntity.getBrandId());
                 skuInfoEntity.setCatalogId(spuInfoEntity.getCatalogId());
                 skuInfoEntity.setSaleCount(0L);
+
                 skuInfoEntity.setSkuDefaultImg(defaultImg);
                 skuInfoEntity.setSpuId(spuInfoEntity.getId());
                 skuInfoService.saveSkuInfo(skuInfoEntity);
@@ -167,6 +171,37 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     public void saveBaseSpuInfo(SpuInfoEntity spuInfoEntity) {
         this.baseMapper.insert(spuInfoEntity);
     }
+
+    @Override
+    public PageUtils queryPageByCondition(Map<String, Object> params) {
+        QueryWrapper<SpuInfoEntity> wrapper = new QueryWrapper<>();
+        String key = (String) params.get("key");
+        if (!org.springframework.util.StringUtils.isEmpty( key)){
+            wrapper.and(w->{
+                w.eq("id",key).or().like("spu_name",key);
+            });
+        }
+        String status = (String) params.get("status");
+        if (!org.springframework.util.StringUtils.isEmpty( status)){
+            wrapper.eq("publish_status",status);
+        }
+        String brandId = (String) params.get("brandId");
+        if (!org.springframework.util.StringUtils.isEmpty( brandId) && !"0".equalsIgnoreCase(brandId)){
+            wrapper.eq("brand_id",brandId);
+
+        }
+        String catelogId = (String) params.get("catelogId");
+        if (!org.springframework.util.StringUtils.isEmpty( catelogId) && !"0".equalsIgnoreCase(catelogId)){
+            wrapper.eq("catalog_id",catelogId);
+        }
+        IPage<SpuInfoEntity> page = this.page(
+                new Query<SpuInfoEntity>().getPage(params),
+                wrapper
+        );
+
+        return new PageUtils(page);
+    }
+
 
 
 }
