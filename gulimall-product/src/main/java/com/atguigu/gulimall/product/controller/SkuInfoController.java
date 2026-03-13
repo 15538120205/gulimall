@@ -26,6 +26,12 @@ public class SkuInfoController {
     private SkuInfoService skuInfoService;
 
 
+    @RequestMapping("/info/{skuId}")
+    public R infoSkuName(@PathVariable("skuId") Long skuId){
+        SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+        return R.ok().put("skuInfo", skuInfo);}
+
+
 
     /**
      * 列表
@@ -43,13 +49,13 @@ public class SkuInfoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{skuId}")
-   // @RequiresPermissions("product:skuinfo:info")
-    public R info(@PathVariable("skuId") Long skuId){
-		SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
-
-        return R.ok().put("skuInfo", skuInfo);
-    }
+//    @RequestMapping("/info/{skuId}")
+//   // @RequiresPermissions("product:skuinfo:info")
+//    public R info(@PathVariable("skuId") Long skuId){
+//		SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+//        String skuName = skuInfo.getSkuName();
+//        return R.ok().put("skuInfo", skuName);
+//    }
 
     /**
      * 保存
