@@ -18,7 +18,19 @@ spring:
   # 关闭thymeleaf缓存，以便于修改代码后刷新页面能看出修改
   thymeleaf:
     cache: false
-
+  redis:
+    host: 192.168.56.10
+    port: 6379
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      #设置key的前缀,一般情况下不要自定统一前缀,方便分区处理
+#      key-prefix: CACHE_
+      #key是否使用前缀
+      use-key-prefix: true
+      #是否允许空值 # 防止缓存穿透，可缓存null值
+      cache-null-values: true
 mybatis-plus:
   configuration:
     #数据库下划线和实体类驼峰统一
