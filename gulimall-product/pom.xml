@@ -15,6 +15,20 @@
         <spring-cloud.version>2021.0.5</spring-cloud.version>
     </properties>
     <dependencies>
+
+        <!--        页面渲染我们使用thymeleaf，这应该和freemarker是差不多的，都是模板引擎-->
+        <!--        优点：它是一个自然化语言，编写的语言前端可以直接使用，方便前后人员的分工合作-->
+        <!--        缺点：性能比其他模板引擎要低一点，但是我们在生产环境开启了它的缓存功能，性能也是很高的-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!--热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.aliyun.oss</groupId>-->
 <!--            <artifactId>aliyun-sdk-oss</artifactId>-->

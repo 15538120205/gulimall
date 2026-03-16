@@ -6,6 +6,7 @@ import com.atguigu.gulimall.product.dao.CategoryDao;
 import com.atguigu.gulimall.product.entity.CategoryEntity;
 import com.atguigu.gulimall.product.service.CategoryBrandRelationService;
 import com.atguigu.gulimall.product.service.CategoryService;
+import com.atguigu.gulimall.product.vo.Catalog2Vo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -87,6 +88,47 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void updateCascade(CategoryEntity category) {
         this.updateById(category);
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
+    }
+    /**
+     * 查询所有一级分类
+     * @return
+     */
+    @Override
+    public List<CategoryEntity> getLevel1Categorys() {
+        return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid",0));
+    }
+
+    @Override
+    public Map<String, List<Catalog2Vo>> getCatalogJson() {
+        //1.查出所有分类
+        //2.查出所有一级分类
+        List<CategoryEntity> level1Categorys = getLevel1Categorys();
+        //3.封装数据
+        Map<String, List<Catalog2Vo>> parent_cid = level1Categorys.stream().collect(Collectors.toMap(
+                key -> key.getCatId().toString(),
+                value -> {
+                    //2.封装二级分类
+                    List<CategoryEntity> categoryEntities = baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", value.getCatId()));
+                    List<Catalog2Vo> catalog2Vos = null;
+                    if (categoryEntities != null && categoryEntities.size() > 0) {
+                        catalog2Vos = categoryEntities.stream().map(level2 -> {
+                            Catalog2Vo catalog2Vo = new Catalog2Vo(value.getCatId().toString(), null, level2.getCatId().toString(), level2.getName());
+                            List<CategoryEntity> level3Catelog = baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", level2.getCatId()));
+                            if (level3Catelog != null && level3Catelog.size() > 0){
+                                List<Catalog2Vo.Catalog3Vo> catalog3Vos = level3Catelog.stream().map(level3 -> {
+                                    Catalog2Vo.Catalog3Vo catalog3Vo = new Catalog2Vo.Catalog3Vo(level2.getCatId().toString(), level3.getCatId().toString(), level3.getName());
+                                    return catalog3Vo;
+                                }).collect(Collectors.toList());
+                                catalog2Vo.setCatalog3List(catalog3Vos);
+
+                            }
+                            return catalog2Vo;
+                        }).collect(Collectors.toList());
+                    }
+                    return catalog2Vos;
+                }
+        ));
+        return parent_cid;
     }
 
     private List<Long> findParentPath(Long catelogId, List<Long> paths){

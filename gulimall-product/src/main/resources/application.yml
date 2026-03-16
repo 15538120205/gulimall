@@ -15,6 +15,9 @@ spring:
         server-addr: 127.0.0.1:8848
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  # 关闭thymeleaf缓存，以便于修改代码后刷新页面能看出修改
+  thymeleaf:
+    cache: false
 
 mybatis-plus:
   configuration:
@@ -32,3 +35,7 @@ mybatis-plus:
   #告诉mp，sql映射文件的位置，默认值classpath*:/mapper/**/*.xml。
   #  classpath表示只引用现在模块的类路径。lasspath*表示不止引用现在模块的类路径，还包括依赖jar包的类路径
   mapper-locations: classpath:/mapper/**/*.xml
+
+
+
+

@@ -59,6 +59,13 @@ spring:
             # 默认规则， 请求过来：http://localhost:88/api/captcha.jpg   转发-->  http://renren-fast:8080/api/captcha.jpg
             # 但是真正的路径是http://renren-fast:8080/renren-fast/captcha.jpg
             # 所以使用路径重写把/api/* 改变成 /renren-fast/*
+        # 域名映射只能放在最后面，否则会覆盖上面的api路径
+        # 例如我们访问product的api路径，优先匹配到这个的话就会去直接找product
+        # 不会再路径重写了
+        - id: gulimall_host_route
+          uri: lb://gulimall-product
+          predicates:
+            - Host=**.gulimall.com
   application:
     name: gulimall-gateway
 logging:
