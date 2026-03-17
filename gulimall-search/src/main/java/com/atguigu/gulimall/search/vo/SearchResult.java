@@ -3,6 +3,7 @@ package com.atguigu.gulimall.search.vo;
 import com.atguigu.common.to.es.SkuEsModel;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,6 +31,8 @@ public class SearchResult {
 
     private List<Integer> pageNavs;
 
+    private List<Long> attrIds = new ArrayList<>();
+
     /**
      * 当前查询到的结果，所有涉及到的品牌
      */
@@ -50,7 +53,8 @@ public class SearchResult {
 
 
     /* 面包屑导航数据 */
-    private List<NavVo> navs;
+    private List<NavVo> navs = new ArrayList<>();
+
 
     @Data
     public static class NavVo {
