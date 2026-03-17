@@ -7,8 +7,6 @@ import java.util.List;
 
 
 @Data
-@Getter
-@Setter
 public class SkuEsModel {
     /**
      * SKU Elasticsearch 数据模型

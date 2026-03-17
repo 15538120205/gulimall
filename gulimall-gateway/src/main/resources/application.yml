@@ -63,9 +63,15 @@ spring:
         # 例如我们访问product的api路径，优先匹配到这个的话就会去直接找product
         # 不会再路径重写了
         - id: gulimall_host_route
-          uri: lb://gulimall-product
+          uri: lb://gulimall-product  # lb：负载均衡
           predicates:
-            - Host=**.gulimall.com
+            - Host=gulimall.com   # **.xxx  子域名
+
+        - id: gulimall_search_route
+          uri: lb://gulimall-search  # lb：负载均衡
+          predicates:
+            - Host=search.gulimall.com   # **.xxx  子域名
+
   application:
     name: gulimall-gateway
 logging:
