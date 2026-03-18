@@ -65,12 +65,13 @@ spring:
         - id: gulimall_host_route
           uri: lb://gulimall-product  # lb：负载均衡
           predicates:
-            - Host=gulimall.com   # **.xxx  子域名
+            - Host=gulimall.com ,item.gulimall.com  # **.xxx  子域名
 
         - id: gulimall_search_route
           uri: lb://gulimall-search  # lb：负载均衡
           predicates:
             - Host=search.gulimall.com   # **.xxx  子域名
+
 
   application:
     name: gulimall-gateway

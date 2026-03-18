@@ -303,9 +303,6 @@ public class MallSearchServiceImpl implements MallSearchService {
                 navVo.setLink("http://search.gulimall.com/list.html?" + replace);
             }
             navs.add(navVo);
-
-
-
         }
         return result;
     }
