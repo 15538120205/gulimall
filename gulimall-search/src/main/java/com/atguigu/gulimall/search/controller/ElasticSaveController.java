@@ -27,6 +27,7 @@ public class ElasticSaveController {
     @PostMapping("/product")
     public R productStatusUp(@RequestBody List<SkuEsModel> skuEsModels){
         boolean b = false;
+
         try {
         b = productSaveService.productStatusUp(skuEsModels);
         } catch (IOException e) {

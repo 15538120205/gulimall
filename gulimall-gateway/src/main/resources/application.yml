@@ -71,6 +71,11 @@ spring:
           uri: lb://gulimall-search  # lb：负载均衡
           predicates:
             - Host=search.gulimall.com   # **.xxx  子域名
+        #认证服务
+        - id: gulimall_auth_host
+          uri: lb://gulimall-auth-server
+          predicates:
+            - Host=auth.gulimall.com
 
 
   application:
