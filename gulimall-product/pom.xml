@@ -36,6 +36,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
 
         <!--        页面渲染我们使用thymeleaf，这应该和freemarker是差不多的，都是模板引擎-->
         <!--        优点：它是一个自然化语言，编写的语言前端可以直接使用，方便前后人员的分工合作-->

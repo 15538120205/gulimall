@@ -2,11 +2,12 @@ package com.atguigu.gulimall.auth.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.atguigu.common.constant.AuthServerConstant;
 import com.atguigu.common.utils.HttpUtils;
 import com.atguigu.common.utils.R;
+import com.atguigu.common.vo.MemberRespVo;
 import com.atguigu.gulimall.auth.feign.MemberFeignService;
 import com.atguigu.gulimall.auth.vo.GitHubUserInfo;
-import com.atguigu.gulimall.auth.vo.MemberRespVo;
 import com.atguigu.gulimall.auth.vo.SocialUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
@@ -68,8 +69,8 @@ public class OAuth2Controller {
             if (r.getCode() == 0){
                 //获取信息
                 MemberRespVo data = r.getData("data", new TypeReference<MemberRespVo>() {});
-                session.setAttribute("loginUser",data);
-                System.out.println("登录成功,用户信息:"+data.toString());
+                session.setAttribute(AuthServerConstant.LOGIN_USER,data);
+                System.out.println("登录成功,用户信息:"+data.getNickname());
                 //登录成功
                 return "redirect:http://gulimall.com";
             }else {

@@ -13,6 +13,9 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  session:
+    store-type: redis
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   # 关闭thymeleaf缓存，以便于修改代码后刷新页面能看出修改
