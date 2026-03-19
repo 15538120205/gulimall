@@ -68,7 +68,9 @@ public class Cart {
         if (items!=null && items.size()>0) {
             for (CartItem item : items) {
                 BigDecimal totalPrice = item.getTotalPrice();
-                amount = amount.add(totalPrice);
+                if (item.getCheck()) {
+                    amount = amount.add(totalPrice);
+                }
             }
         }
         // 2、减去优惠总价
