@@ -9,4 +9,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ThirdPartFeignService {
     @GetMapping("/sms/sendcode")
     R sendCode(@RequestParam("phone") String phone, @RequestParam("code") String code);
+
 }

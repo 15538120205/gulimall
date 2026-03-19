@@ -8,6 +8,7 @@ import com.atguigu.gulimall.member.exception.PhoneException;
 import com.atguigu.gulimall.member.exception.UsernameException;
 import com.atguigu.gulimall.member.feign.CouponFeignService;
 import com.atguigu.gulimall.member.service.MemberService;
+import com.atguigu.gulimall.member.vo.GitHubUserInfo;
 import com.atguigu.gulimall.member.vo.MemberRegistVo;
 import com.atguigu.gulimall.member.vo.MemberUserLoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,19 @@ public class MemberController {
     private MemberService memberService;
     @Autowired
     private CouponFeignService couponFeignService;
+
+    /**
+     * 社交登录
+     */
+    @PostMapping(value = "/oauth2/login")
+    public R login(@RequestBody GitHubUserInfo gitHubUserInfo) {
+        MemberEntity memberEntity = memberService.login(gitHubUserInfo);
+        if (memberEntity != null) {
+            return R.ok().setData(memberEntity);
+        } else {
+            return R.error(BizCodeEnum.LOGINACCT_PASSWORD_EXCEPTION.getCode(), BizCodeEnum.LOGINACCT_PASSWORD_EXCEPTION.getMsg());
+        }
+    }
 
     @RequestMapping("/coupons")
     public R test(){

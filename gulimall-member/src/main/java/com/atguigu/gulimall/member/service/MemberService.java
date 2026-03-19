@@ -4,6 +4,7 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.gulimall.member.entity.MemberEntity;
 import com.atguigu.gulimall.member.exception.PhoneException;
 import com.atguigu.gulimall.member.exception.UsernameException;
+import com.atguigu.gulimall.member.vo.GitHubUserInfo;
 import com.atguigu.gulimall.member.vo.MemberRegistVo;
 import com.atguigu.gulimall.member.vo.MemberUserLoginVo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -37,5 +38,7 @@ public interface MemberService extends IService<MemberEntity> {
     void checkUserNameUnique(String userName) throws UsernameException;
 
     MemberEntity login(MemberUserLoginVo userLoginVo);
+
+    MemberEntity login(GitHubUserInfo gitHubUserInfo);
 }
 

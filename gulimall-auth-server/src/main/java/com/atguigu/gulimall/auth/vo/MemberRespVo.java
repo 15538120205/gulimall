@@ -1,7 +1,5 @@
-package com.atguigu.gulimall.member.entity;
+package com.atguigu.gulimall.auth.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,14 +13,10 @@ import java.util.Date;
  * @date 2026-03-10 17:53:58
  */
 @Data
-@TableName("ums_member")
-public class MemberEntity implements Serializable {
+public class MemberRespVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * id
-	 */
-	@TableId
+
 	private Long id;
 	/**
 	 * 会员等级id

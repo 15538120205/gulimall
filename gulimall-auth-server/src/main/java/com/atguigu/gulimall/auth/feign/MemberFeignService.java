@@ -1,6 +1,7 @@
 package com.atguigu.gulimall.auth.feign;
 
 import com.atguigu.common.utils.R;
+import com.atguigu.gulimall.auth.vo.GitHubUserInfo;
 import com.atguigu.gulimall.auth.vo.UserLoginVo;
 import com.atguigu.gulimall.auth.vo.UserRegistVo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -19,4 +20,7 @@ public interface MemberFeignService {
      */
     @PostMapping(value = "/member/member/login")
     R login(@RequestBody UserLoginVo userLoginVo);
+
+    @PostMapping(value = "/member/member/oauth2/login")
+    R oauth2Login(@RequestBody GitHubUserInfo gitHubUserInfo);
 }
