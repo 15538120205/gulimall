@@ -83,7 +83,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         String loginacct = userLoginVo.getLoginacct();
         String password = userLoginVo.getPassword();
         //1、去数据库查询 SELECT * FROM ums_member WHERE username=? OR mobile=?
-        MemberEntity memberEntity = this.baseMapper.selectOne(new QueryWrapper<MemberEntity>().eq("username", loginacct).or().eq("mobile", loginacct));
+        MemberEntity memberEntity = this.baseMapper.selectOne(new QueryWrapper<MemberEntity>().eq("username", loginacct).or().eq("mobile", loginacct).or().eq("email", loginacct));
         if (memberEntity != null) {
             //2、校验密码
             String password1 = memberEntity.getPassword();
