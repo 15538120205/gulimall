@@ -4,6 +4,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.atguigu.common.constant.AuthServerConstant;
 import com.atguigu.common.exception.BizCodeEnum;
 import com.atguigu.common.utils.R;
+import com.atguigu.common.vo.MemberRespVo;
 import com.atguigu.gulimall.auth.feign.MemberFeignService;
 import com.atguigu.gulimall.auth.feign.ThirdPartFeignService;
 import com.atguigu.gulimall.auth.vo.UserLoginVo;
@@ -125,10 +126,12 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public String login(UserLoginVo userLoginVo, RedirectAttributes attributes) {
+    public String login(UserLoginVo userLoginVo, RedirectAttributes attributes,HttpSession session) {
         R r = memberFeignService.login(userLoginVo);
         if (r.getCode() == 0) {
             log.info("账号密码登录成功");
+            session.setAttribute(AuthServerConstant.LOGIN_USER, r.getData("data", new TypeReference<MemberRespVo>() {
+            }));
             return "redirect:http://gulimall.com";
         } else {
             Map<String, String> errors = new HashMap<>();

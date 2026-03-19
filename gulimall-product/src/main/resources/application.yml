@@ -1,5 +1,9 @@
 server:
   port: 10000
+  servlet:
+    #配置session过期时间
+    session:
+      timeout: 30m
 spring:
   datasource:
     username: root

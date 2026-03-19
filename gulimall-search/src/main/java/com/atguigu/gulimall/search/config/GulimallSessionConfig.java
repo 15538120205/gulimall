@@ -24,4 +24,5 @@ public class GulimallSessionConfig {
         return new GenericJackson2JsonRedisSerializer();
     }
 }
- 
+
+
