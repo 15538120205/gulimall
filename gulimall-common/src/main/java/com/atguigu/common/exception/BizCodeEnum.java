@@ -15,6 +15,7 @@ package com.atguigu.common.exception;
 //         13: 购物车
 //         14: 物流
 //         15: 用户
+//         21: 库存
 public enum BizCodeEnum {
     PRODUCT_UP_EXCEPTION(11000,"商品上架异常"),
     USER_EXIST_EXCEPTION(15001,"用户已存在"),
@@ -22,6 +23,7 @@ public enum BizCodeEnum {
     LOGINACCT_PASSWORD_EXCEPTION(15003,"账号或密码错误"),
     UNKNOW_EXEPTION(10000,"系统未知异常"),
     VALID_SMS_CODE_EXCEPTION(10002,"验证码获取频率太高,请稍后再试"),
+    NO_STOCK_EXCEPTION(21000,"商品库存不足"),
     VALID_EXCEPTION( 10001,"参数格式校验失败");
 
 

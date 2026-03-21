@@ -29,6 +29,7 @@
     </properties>
 
     <dependencies>
+
         <!-- 修复1：补充spring-boot-configuration-processor缺失的版本号（版本和父工程保持一致，不改动） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,6 +37,7 @@
             <version>${spring.boot.configuration.processor.version}</version>
             <optional>true</optional>
         </dependency>
+
 
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -78,6 +80,7 @@
             <artifactId>spring-cloud-loadbalancer</artifactId>
             <version>3.1.4</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -154,6 +157,11 @@
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>2.3.2.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
