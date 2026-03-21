@@ -46,3 +46,4 @@ gulimall:
 logging:
   level:
     com.atguigu.gulimall.order.feign.CartFeignService: DEBUG
+    io.seata: OFF # 完全关闭 Seata 所有日志

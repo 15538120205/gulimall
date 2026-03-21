@@ -62,6 +62,9 @@ gulimall:
     core-size: 20
     max-size: 200
     keep-alive-time: 10
+logging:
+  level:
+    io.seata: OFF # 完全关闭 Seata 所有日志
 
 
 
