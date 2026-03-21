@@ -55,7 +55,6 @@ public class SpuInfoController {
    // @RequiresPermissions("product:spuinfo:info")
     public R info(@PathVariable("id") Long id){
 		SpuInfoEntity spuInfo = spuInfoService.getById(id);
-
         return R.ok().put("spuInfo", spuInfo);
     }
 

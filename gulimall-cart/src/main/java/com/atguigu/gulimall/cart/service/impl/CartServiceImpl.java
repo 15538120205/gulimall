@@ -17,11 +17,13 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -190,5 +192,34 @@ public class CartServiceImpl implements CartService {
     public void deleteIdCartInfo(Integer skuId) {
         BoundHashOperations<String, Object, Object> cartOps = getCartOps();
         cartOps.delete(skuId.toString());
+    }
+
+
+
+    /**
+     * 获取用户选择的所有购物项
+     * @return
+     */
+    @Override
+    public List<CartItem> getUserCartItems() {
+        UserInfoTo userInfoTo = CartInterceptor.ThreadLocal.get();
+        System.out.println(userInfoTo);
+        if (userInfoTo.getUserId() == null) {
+            return null;
+        } else {
+            String cartKey = CART_PREFIX + userInfoTo.getUserId();
+            // 获取所有用户选择的购物项
+            List<CartItem> collect = getCartItems(cartKey).stream()
+                    .filter(item -> item.getCheck())
+                    .map(item->{
+                        // TODO 1、更新为最新价格
+                        R price = productFeignService.getPrice(item.getSkuId());
+                        String data = (String) price.get("data");
+                        item.setPrice(new BigDecimal(data));
+                        return item;
+                    })
+                    .collect(Collectors.toList());
+            return collect;
+        }
     }
 }

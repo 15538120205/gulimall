@@ -42,3 +42,6 @@ gulimall:
     core-size: 20
     max-size: 200
     keep-alive-time: 10
+logging:
+  level:
+    com.atguigu.gulimall.order.feign.CartFeignService: DEBUG

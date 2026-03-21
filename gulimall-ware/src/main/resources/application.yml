@@ -1,5 +1,5 @@
 server:
-  port: 12000
+  port: 11000
 spring:
   datasource:
     username: root

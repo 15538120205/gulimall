@@ -41,6 +41,32 @@ public class CartItem {
      * 小计价格
      */
     private BigDecimal totalPrice;
+
+//    /**
+//     * 是否有货
+//     */
+//    private Boolean hasStock = true;
+//
+//    public Boolean getHasStock() {
+//        return hasStock;
+//    }
+//
+//    public void setHasStock(Boolean hasStock) {
+//        this.hasStock = hasStock;
+//    }
+
+    public BigDecimal getWeight() {
+        return weight;
+    }
+
+    public void setWeight(BigDecimal weight) {
+        this.weight = weight;
+    }
+
+    /**
+     * 重量
+     */
+    private BigDecimal weight = new BigDecimal("0");
  
     public Long getSkuId() {
         return skuId;

@@ -1,6 +1,8 @@
 package com.atguigu.gulimall.order;
 
 import com.atguigu.gulimall.order.entity.OrderReturnReasonEntity;
+import com.atguigu.gulimall.order.feign.CartFeignService;
+import com.atguigu.gulimall.order.vo.OrderItemVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpAdmin;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
@@ -83,6 +86,13 @@ class GulimallOrderApplicationTests {
     @Test
     public void receiveMsg() {
 
+    }
+    @Autowired
+    CartFeignService cartFeignService;
+    @Test
+    void test() {
+        List<OrderItemVo> currentCartItems = cartFeignService.getCurrentUserCartItems();
+        System.out.println(currentCartItems);
     }
 
 }

@@ -8,14 +8,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Controller
 public class CartController {
     @Autowired
-    private CartService cartService;
+    CartService cartService;
+
+    @GetMapping("/currentUserCartItems")
+    @ResponseBody
+    public List<CartItem> getCurrentUserCartItems(){
+        return cartService.getUserCartItems();
+    }
+
+
+
     /**
      * 跳转到购物车页面
      * 浏览器cookie标识user:key,标识用户身份,一个月过期
