@@ -29,6 +29,9 @@ public class AlipayTemplate {
     //同步通知，支付成功，一般跳转到成功页
     private  String return_url;
 
+    //TODO 修改自动收单时间
+    private  String timeout_express = "1m";
+
     // 签名方式
     private  String sign_type = "RSA2";
 
@@ -64,6 +67,7 @@ public class AlipayTemplate {
                 + "\"total_amount\":\""+ total_amount +"\","
                 + "\"subject\":\""+ subject +"\","
                 + "\"body\":\""+ body +"\","
+                + "\"timeout_express\":\""+timeout_express+"\","
                 + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
 
         String result = alipayClient.pageExecute(alipayRequest).getBody();
