@@ -3,6 +3,7 @@ package com.atguigu.gulimall.order.service.impl;
 import com.alibaba.fastjson.TypeReference;
 import com.atguigu.common.exception.NoStockException;
 import com.atguigu.common.to.mq.OrderTo;
+import com.atguigu.common.to.mq.SeckillOrderTo;
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.Query;
 import com.atguigu.common.utils.R;
@@ -273,6 +274,31 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             this.update(new UpdateWrapper<OrderEntity>().set("status", OrderStatusEnum.PAYED.getCode()).eq("order_sn", vo.getOut_trade_no()));
         }
         return "success";
+    }
+
+    @Override
+    public void createSeckillOrder(SeckillOrderTo seckillOrderTo) {
+
+        //TODO 保存订单信息
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn(seckillOrderTo.getOrderSn());
+        orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
+        orderEntity.setMemberId(seckillOrderTo.getMemberId());
+        orderEntity.setCreateTime(new Date());
+        BigDecimal decimal = seckillOrderTo.getSeckillPrice().multiply(seckillOrderTo.getNum());
+        orderEntity.setPayAmount(decimal);
+        this.save(orderEntity);
+        //保存订单项信息
+        OrderItemEntity orderItemEntity = new OrderItemEntity();
+        orderItemEntity.setOrderSn(seckillOrderTo.getOrderSn());
+        orderItemEntity.setSkuId(seckillOrderTo.getSkuId());
+        orderItemEntity.setRealAmount(decimal);
+        orderItemEntity.setSkuQuantity(seckillOrderTo.getNum().intValue());
+
+        orderItemService.save(orderItemEntity);
+
+
+
     }
 
 

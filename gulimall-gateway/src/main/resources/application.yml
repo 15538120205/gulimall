@@ -46,6 +46,9 @@ spring:
             - Path=/api/product/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+
+
         # 人人管理，路径路由。路由id，自定义，只要唯一即可
         - id: admin_route
           # uri路由的目标地址。lb就是负载均衡，后面跟服务名称。
@@ -88,6 +91,10 @@ spring:
           uri: lb://gulimall-member
           predicates:
             - Host=member.gulimall.com
+        - id: gulimall-seckill-route
+          uri: lb://gulimall-seckill
+          predicates:
+            - Host=seckill.gulimall.com
 
 
 

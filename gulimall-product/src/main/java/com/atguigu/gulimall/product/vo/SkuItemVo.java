@@ -38,5 +38,7 @@ public class SkuItemVo {
      */
     private List<SpuItemAttrGroupVo> groupAttrs;
 
+    private SeckillInfoVo seckillInfo;//秒杀优惠信息
+
 
 }
