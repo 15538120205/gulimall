@@ -1,4 +1,4 @@
-package com.atguigu.gulimall.order.interceptor;
+package com.atguigu.gulimall.member.interceptor;
 
 import cn.hutool.core.text.AntPathMatcher;
 import com.atguigu.common.constant.AuthServerConstant;
@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 @Component
 public class LoginUserInterceptor implements HandlerInterceptor {
     public static ThreadLocal<MemberRespVo> loginUser = new ThreadLocal<>();
@@ -23,9 +24,8 @@ public class LoginUserInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestURI = request.getRequestURI();
-        boolean match = new AntPathMatcher().match("/order/order/status/**", requestURI);
-        boolean match1 = new AntPathMatcher().match("/payed/notify/**", requestURI);
-        if (match || match1){
+        boolean match = new AntPathMatcher().match("/member/**", requestURI);
+        if (match){
             return true;
         }
         MemberRespVo  attribute= (MemberRespVo) request.getSession().getAttribute(AuthServerConstant.LOGIN_USER);

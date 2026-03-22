@@ -12,7 +12,7 @@
         <img src="/static/order/pay/img/logo1.jpg" alt=""><span class="bank">收银台</span>
         <ul>
           <li><span>[[${session.loginUser==null?'':session.loginUser.nickname}]]          </span><span>退出</span></li>
-          <li ><a href="http://order.gulimall.com/list.html">我的订单</a></li>
+          <li ><a href="http://member.gulimall.com/memberOrder.html">我的订单</a></li>
           <li>支付帮助</li>
         </ul>
       </div>
@@ -100,7 +100,8 @@
             <img src="/static/order/pay/img/weixin.png" alt="">微信支付
           </li>
 		  <li>
-            <img src="/static/order/pay/img/zhifubao.png" style="weight:auto;height:30px;" alt="">支付宝
+            <img src="/static/order/pay/img/zhifubao.png" style="weight:auto;height:30px;" alt="">
+              <a th:href="'http://order.gulimall.com/payOrder?orderSn='+${submitOrderResp.order.orderSn}">支付宝</a>
           </li>
         </ul>
       </div>
