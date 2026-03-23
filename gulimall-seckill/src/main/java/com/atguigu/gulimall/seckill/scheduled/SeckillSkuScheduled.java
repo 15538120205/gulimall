@@ -26,7 +26,7 @@ public class SeckillSkuScheduled {
     private RedissonClient redissonClient;
 
     private final String upload_lock = "seckill:upload:lock";
-    @Scheduled(cron = "*/30 * * * * ?")
+    @Scheduled(cron = "*/3 * * * * ?")
     public void uploadSeckillSkuLatest3Days(){
         log.info("上架秒杀商品信息...");
         //重复上架无需处理

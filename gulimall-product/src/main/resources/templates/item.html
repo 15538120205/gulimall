@@ -636,7 +636,7 @@
 
 								</div>
 							</div>
-							<div class="box-btns-two" th:if="${item.seckillInfo == null }">
+							<div class="box-btns-two" th:if="${item.seckillInfo == null || (#dates.createNow().getTime() < item.seckillInfo.startTime && #dates.createNow().getTime() > item.seckillInfo.endTime)}">
 								<a href="#" id="addToCart" th:attr="skuId=${item.info.skuId}">
 									加入购物车
 								</a>
