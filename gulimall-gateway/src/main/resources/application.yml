@@ -5,6 +5,8 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+
+
     gateway:
       routes:
         - id: coupon_route
@@ -100,6 +102,9 @@ spring:
 
   application:
     name: gulimall-gateway
+  elasticsearch:
+    rest:
+      uris: http://192.168.56.10:9200 # 改为你的ES实际端口
 logging:
   level:
     com.com.atguigu.gulimall: debug

@@ -1,5 +1,0 @@
-启动nacos
-startup.cmd -m standalone
-启动虚拟机
-vargant up
-vargant ssh

@@ -24,6 +24,7 @@ public enum BizCodeEnum {
     UNKNOW_EXEPTION(10000,"系统未知异常"),
     VALID_SMS_CODE_EXCEPTION(10002,"验证码获取频率太高,请稍后再试"),
     NO_STOCK_EXCEPTION(21000,"商品库存不足"),
+    TO_MANY_REQUEST(10003,"请求流量太大,请稍后再试"),
     VALID_EXCEPTION( 10001,"参数格式校验失败");
 
 

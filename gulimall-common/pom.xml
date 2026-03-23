@@ -26,6 +26,7 @@
         <elasticsearch.version>7.4.2</elasticsearch.version>
         <!-- 新增：为spring-boot-configuration-processor补充版本（复用父工程Spring Boot版本，不改动其他版本） -->
         <spring.boot.configuration.processor.version>2.6.13</spring.boot.configuration.processor.version>
+        <sentinel.transport.version>1.8.5</sentinel.transport.version>
     </properties>
 
     <dependencies>
@@ -37,6 +38,32 @@
             <version>${spring.boot.configuration.processor.version}</version>
             <optional>true</optional>
         </dependency>
+
+        <!-- ========== 新增：Sentinel核心依赖（核心） ========== -->
+        <!-- Sentinel 核心依赖（版本由dependencyManagement的2021.0.1.0自动管理，无需写版本） -->
+        <!-- Sentinel 服务熔断、降级、限流 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-web-servlet</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-transport-simple-http</artifactId>
+            <version>${sentinel.transport.version}</version>
+        </dependency>
+        <!-- Sentinel 注解支持（@SentinelResource） -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-annotation-aspectj</artifactId>
+            <version>${sentinel.transport.version}</version>
+        </dependency>
+
+
 
 
         <dependency>
@@ -175,5 +202,32 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <repositories>
+        <repository>
+            <id>aliyunmaven</id>
+            <name>阿里云中央仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyunmaven</id>
+            <name>阿里云中央仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

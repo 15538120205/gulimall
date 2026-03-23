@@ -1,5 +1,9 @@
 package com.atguigu.gulimall.seckill.service.impl;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.atguigu.common.to.mq.SeckillOrderTo;
@@ -13,6 +17,7 @@ import com.atguigu.gulimall.seckill.to.SecKillSkuRedisTo;
 import com.atguigu.gulimall.seckill.vo.SeckillSessionsWithSkus;
 import com.atguigu.gulimall.seckill.vo.SkuInfoVo;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -32,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class SeckillServiceImpl implements SeckillService {
     @Autowired
     CouponFeignService couponFeignService;
@@ -68,9 +74,20 @@ public class SeckillServiceImpl implements SeckillService {
         }
     }
 
+    /**
+     * 服务降级调用的方法
+     * @param e
+     * @return
+     */
+    public List<SecKillSkuRedisTo> blockHandler(BlockException e){
+        log.error("getCurrentSeckillSkus.....服务降级");
+        return null;
+    }
+    //基于注解的资源降级
+    @SentinelResource(value = "getCurrentSeckillSkus", blockHandler = "blockHandler" )
     @Override
     public List<SecKillSkuRedisTo> getCurrentSeckillSkus() {
-        //try (Entry entry = SphU.entry("seckillSkus")) {
+        try (Entry entry = SphU.entry("seckillSkus")) {
         // 1.查询当前时间所属的秒杀场次
         long currentTime = System.currentTimeMillis();// 当前时间
         // 查询所有秒杀场次的key
@@ -103,9 +120,10 @@ public class SeckillServiceImpl implements SeckillService {
                 break;
             }
         }
-        //} catch (BlockException e) {
-        //    log.error("资源被限流{}", e.getMessage());
-        //}
+        } catch (BlockException e) {
+            //TODO 资源限流处理
+            log.error("资源被限流{}", e.getMessage());
+        }
         return null;
     }
 
@@ -235,6 +253,7 @@ public class SeckillServiceImpl implements SeckillService {
 
 
     private void saveSessionInfos(List<SeckillSessionsWithSkus> sessions) {
+        if (sessions != null)
         sessions.stream().forEach(session -> {
             long startTime = session.getStartTime().getTime();
             long endTime = session.getEndTime().getTime();
@@ -246,7 +265,6 @@ public class SeckillServiceImpl implements SeckillService {
                 redisTemplate.opsForList().leftPushAll(key,collect);
             }
         });
-
     }
     private void saveSessionSkuInfos(List<SeckillSessionsWithSkus> sessions) {
         sessions.stream().forEach(session -> {

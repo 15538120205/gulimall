@@ -52,6 +52,11 @@
 	</properties>
 
 	<dependencies>
+		<!--统计审核信息-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.atguigu</groupId>
 			<artifactId>gulimall-common</artifactId>
